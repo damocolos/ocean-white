@@ -10,6 +10,8 @@ import SimilarityApp from './similarity/main.tsx';
 
 import BcryptApp from './bcrypt/main.tsx';
 import LinkAnalyzerApp from './link-analyzer/main.tsx';
+import CurlAnalyzerApp from './curl-analyzer/main.tsx';
+import JsonParserApp from './json-parser/main.tsx';
 
 function Home() {
   return (
@@ -20,6 +22,8 @@ function Home() {
         <Link to="/similarity" className="nes-btn is-success">Score<br/>Sim</Link>
         <Link to="/bcrypt" className="nes-btn" style={{ backgroundColor: '#9b59b6', color: 'white' }}>Bcrypt<br/>Utils</Link>
         <Link to="/link-analyzer" className="nes-btn" style={{ backgroundColor: '#e67e22', color: 'white' }}>Link<br/>Analyze</Link>
+        <Link to="/curl-analyzer" className="nes-btn is-error">Curl<br/>Analyze</Link>
+        <Link to="/json-parser" className="nes-btn" style={{ backgroundColor: '#20b2aa', color: 'white' }}>JSON<br/>Parser</Link>
       </div>
     </Layout>
   );
@@ -63,6 +67,8 @@ if (rootElement) {
           <Route path="/similarity" element={<SimilarityApp />} />
           <Route path="/bcrypt" element={<BcryptApp />} />
           <Route path="/link-analyzer" element={<LinkAnalyzerApp />} />
+          <Route path="/curl-analyzer" element={<CurlAnalyzerApp />} />
+          <Route path="/json-parser" element={<JsonParserApp />} />
         </Routes>
       </HashRouter>
     </React.StrictMode>

@@ -1,8 +1,17 @@
 import { useState } from 'react';
+import { mongeElkan, mongeElkanSymmetric } from '@nlptools/distance';
 import { Layout } from '../components/Layout';
 import '../style.css';
 
 // Basic distance algorithms implementations for fallback/standalone use.
+function normalizeName(name: string): string {
+  return (name ?? "")
+    .normalize("NFD").replace(/\p{Diacritic}/gu, "") // remove diacritic characters
+    .replace(/[^\p{L}\p{N}\s]/gu, "") // remove punctuation
+    .replace(/\s+/g, " ").trim() // remove extra spaces
+    .toLowerCase(); // convert to lowercase
+}
+
 function levenshtein(a: string, b: string): number {
   const matrix: number[][] = [];
   for (let i = 0; i <= b.length; i++) {
@@ -118,36 +127,26 @@ function jaroWinkler(s1: string, s2: string): number {
   return jaro + prefix * 0.1 * (1.0 - jaro);
 }
 
-function mongeElkan(a: string, b: string): number {
-  const tokensA = getTokens(a);
-  const tokensB = getTokens(b);
-  
-  if (tokensA.length === 0 || tokensB.length === 0) return 0.0;
-  
-  let sumMaxSim = 0;
-  for (const tA of tokensA) {
-    let maxSim = 0;
-    for (const tB of tokensB) {
-      const sim = jaroWinkler(tA, tB);
-      if (sim > maxSim) {
-        maxSim = sim;
-      }
-    }
-    sumMaxSim += maxSim;
-  }
-  
-  return sumMaxSim / tokensA.length;
-}
 
 function SimilarityApp() {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [method, setMethod] = useState('monge-elkan');
   const [result, setResult] = useState('--');
+  const [normalizeFlag, setNormalizeFlag] = useState(false);
+  const [norm1, setNorm1] = useState('');
+  const [norm2, setNorm2] = useState('');
 
   const handleCalculate = () => {
-    const a = text1.trim();
-    const b = text2.trim();
+    let a = text1.trim();
+    let b = text2.trim();
+    
+    if (normalizeFlag) {
+      a = normalizeName(a);
+      b = normalizeName(b);
+    }
+    setNorm1(a);
+    setNorm2(b);
     
     if (!a && !b) {
       setResult('Both empty');
@@ -159,6 +158,9 @@ function SimilarityApp() {
       switch (method) {
         case 'monge-elkan':
           score = mongeElkan(a, b);
+          break;
+        case 'monge-elkan-symmetric':
+          score = mongeElkanSymmetric(a, b);
           break;
         case 'levenshtein':
           score = levenshtein(a, b);
@@ -193,6 +195,11 @@ function SimilarityApp() {
           value={text1}
           onChange={(e) => setText1(e.target.value)}
         ></textarea>
+        {normalizeFlag && norm1 && (
+          <p className="nes-text is-disabled" style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
+            Normalized: {norm1}
+          </p>
+        )}
       </div>
       
       <div className="nes-field">
@@ -204,6 +211,22 @@ function SimilarityApp() {
           value={text2}
           onChange={(e) => setText2(e.target.value)}
         ></textarea>
+        {normalizeFlag && norm2 && (
+          <p className="nes-text is-disabled" style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>
+            Normalized: {norm2}
+          </p>
+        )}
+      </div>
+
+      <div className="nes-field">
+        <label className="nes-checkbox">
+          <input 
+            type="checkbox" 
+            checked={normalizeFlag} 
+            onChange={(e) => setNormalizeFlag(e.target.checked)} 
+          />
+          <span>Normalize Inputs</span>
+        </label>
       </div>
 
       <div className="nes-field">
@@ -215,6 +238,7 @@ function SimilarityApp() {
             onChange={(e) => setMethod(e.target.value)}
           >
             <option value="monge-elkan">Monge-Elkan</option>
+            <option value="monge-elkan-symmetric">Monge-Elkan Symmetric</option>
             <option value="levenshtein">Levenshtein</option>
             <option value="jaro-winkler">Jaro-Winkler</option>
             <option value="jaccard">Jaccard</option>
