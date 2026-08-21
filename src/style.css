@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --mario-red: #e52521;
+  --mario-green: #43b047;
+  --mario-gold: #fbd000;
+  --mario-blue: #5c94fc;
+  --mario-brown: #c84c0c;
+  --mario-bg: #5c94fc;
+  --pixel-border-color: #000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background-color: var(--mario-bg);
+  color: white;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  margin: 2rem 0;
+  text-align: center;
+  text-shadow: 2px 2px 0 #000;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+/* NES / Pixel Art Container */
+.nes-container {
+  background-color: white;
+  color: black;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 
+    inset -4px -4px 0px 0px rgba(0,0,0,0.2),
+    4px 4px 0px 0px #000;
+  border: 4px solid var(--pixel-border-color);
+  image-rendering: pixelated;
+}
+
+/* NES Button styling */
+.nes-btn {
+  display: inline-block;
+  font-family: 'Press Start 2P', cursive;
+  text-decoration: none;
+  background-color: var(--mario-red);
+  color: white;
+  padding: 1rem;
+  border: 4px solid #000;
+  box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.3);
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  transition: transform 0.1s;
+}
+
+.nes-btn:hover {
+  background-color: #f73531;
+}
+
+.nes-btn:active {
+  box-shadow: inset 4px 4px 0px 0px rgba(0,0,0,0.3);
+  transform: translate(2px, 2px);
+}
+
+.nes-btn.is-success { background-color: var(--mario-green); }
+.nes-btn.is-success:hover { background-color: #53c057; }
+
+.nes-btn.is-warning { background-color: var(--mario-gold); color: black; }
+.nes-btn.is-warning:hover { background-color: #ffe020; }
+
+.nes-btn.is-primary { background-color: var(--mario-blue); }
+.nes-btn.is-primary:hover { background-color: #6ca4fc; }
+
+/* Grid Layout for Homepage */
+.util-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Form Elements */
+.nes-field {
+  margin-bottom: 1.5rem;
+}
+
+.nes-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.nes-input {
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+  padding: 0.5rem;
+  border: 4px solid #000;
+  box-shadow: inset 2px 2px 0px 0px rgba(0,0,0,0.1);
+  font-size: 1rem;
+}
+
+/* Checkbox */
+label.nes-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+label.nes-checkbox input {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Range Slider */
+.nes-range {
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Select */
+.nes-select select {
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+  padding: 0.5rem;
+  border: 4px solid #000;
+  font-size: 0.8rem;
+  appearance: none;
+  background-color: white;
+}
+.nes-select {
+  position: relative;
+}
+.nes-select::after {
+  content: '▼';
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Result Box */
+.result-box {
+  background-color: var(--mario-gold);
+  color: black;
+  padding: 1rem;
+  border: 4px solid #000;
+  font-size: 1.2rem;
+  text-align: center;
+  word-break: break-all;
+  margin-top: 1rem;
+  min-height: 3.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Coin Animation Toast */
+.coin-toast {
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: coinJump 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  image-rendering: pixelated;
+}
+
+@keyframes coinJump {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  30% { transform: translate(-50%, calc(-50% - 60px)) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, calc(-50% - 100px)) scale(1); opacity: 0; }
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+  
+  header {
+    margin: 1rem 0;
+  }
+  
+  .title {
+    font-size: 1rem;
+  }
+  
+  .header-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .header-link {
+    gap: 0.5rem;
+  }
+  
+  main {
+    padding: 0;
+  }
+  
+  .nes-container {
+    padding: 1rem;
+    border-width: 2px;
+  }
+  
+  .nes-btn {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .nes-input, .nes-select select, .result-box {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+  
+  .util-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
