@@ -39,7 +39,7 @@ document.addEventListener('click', (e) => {
     const y = e.clientY || rect.top + rect.height / 2;
 
     const coin = document.createElement('img');
-    coin.src = '/coin.png';
+    coin.src = import.meta.env.BASE_URL + 'coin.png';
     coin.className = 'coin-toast';
     coin.style.left = `${x}px`;
     coin.style.top = `${y}px`;

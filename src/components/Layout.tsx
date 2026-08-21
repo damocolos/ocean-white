@@ -12,7 +12,7 @@ export function Layout({ children, homeLink = '/', title = 'SUPER UTILS BROS' }:
     <>
       <header>
         <Link to={homeLink} className="header-link">
-          <img src="/favicon.ico" alt="Icon" className="header-icon" />
+          <img src={`${import.meta.env.BASE_URL}favicon.ico`} alt="Icon" className="header-icon" />
           <h1 className="title" style={{ margin: 0 }}>{title}</h1>
         </Link>
       </header>
