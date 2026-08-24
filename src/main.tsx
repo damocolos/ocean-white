@@ -12,6 +12,7 @@ import BcryptApp from './bcrypt/main.tsx';
 import LinkAnalyzerApp from './link-analyzer/main.tsx';
 import CurlAnalyzerApp from './curl-analyzer/main.tsx';
 import JsonParserApp from './json-parser/main.tsx';
+import DateApp from './date/main.tsx';
 
 function Home() {
   return (
@@ -24,6 +25,7 @@ function Home() {
         <Link to="/link-analyzer" className="nes-btn" style={{ backgroundColor: '#e67e22', color: 'white' }}>Link<br/>Analyze</Link>
         <Link to="/curl-analyzer" className="nes-btn is-error">Curl<br/>Analyze</Link>
         <Link to="/json-parser" className="nes-btn" style={{ backgroundColor: '#20b2aa', color: 'white' }}>JSON<br/>Parser</Link>
+        <Link to="/date" className="nes-btn" style={{ backgroundColor: '#c84c0c', color: 'white' }}>Date<br/>Utils</Link>
       </div>
     </Layout>
   );
@@ -69,6 +71,7 @@ if (rootElement) {
           <Route path="/link-analyzer" element={<LinkAnalyzerApp />} />
           <Route path="/curl-analyzer" element={<CurlAnalyzerApp />} />
           <Route path="/json-parser" element={<JsonParserApp />} />
+          <Route path="/date" element={<DateApp />} />
         </Routes>
       </HashRouter>
     </React.StrictMode>
