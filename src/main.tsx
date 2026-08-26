@@ -13,6 +13,7 @@ import LinkAnalyzerApp from './link-analyzer/main.tsx';
 import CurlAnalyzerApp from './curl-analyzer/main.tsx';
 import JsonParserApp from './json-parser/main.tsx';
 import DateApp from './date/main.tsx';
+import JiraSummaryApp from './jira-summary/main.tsx';
 
 function Home() {
   return (
@@ -26,6 +27,7 @@ function Home() {
         <Link to="/curl-analyzer" className="nes-btn is-error">Curl<br/>Analyze</Link>
         <Link to="/json-parser" className="nes-btn" style={{ backgroundColor: '#20b2aa', color: 'white' }}>JSON<br/>Parser</Link>
         <Link to="/date" className="nes-btn" style={{ backgroundColor: '#c84c0c', color: 'white' }}>Date<br/>Utils</Link>
+        <Link to="/jira-summary" className="nes-btn" style={{ backgroundColor: '#0052cc', color: 'white' }}>Jira<br/>Summary</Link>
       </div>
     </Layout>
   );
@@ -72,6 +74,7 @@ if (rootElement) {
           <Route path="/curl-analyzer" element={<CurlAnalyzerApp />} />
           <Route path="/json-parser" element={<JsonParserApp />} />
           <Route path="/date" element={<DateApp />} />
+          <Route path="/jira-summary" element={<JiraSummaryApp />} />
         </Routes>
       </HashRouter>
     </React.StrictMode>
